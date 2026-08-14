@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turma de Arquitetura — Interdisciplinar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F2F0E9;
+    --paper-soft: #EAE7DD;
+    --ink: #1A1A17;
+    --ink-soft: #7C776C;
+    --ink-faint: #A9A497;
+    --line: #D9D5C8;
+    --accent: #3C5164;
+    --accent-warm: #A9754F;
+    --white: #FBFAF7;
+    --font-display: 'Instrument Serif', serif;
+    --font-body: 'Work Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{margin:0; padding:0; box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-weight:400;
+    line-height:1.55;
+  }
+
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  ::selection{background:var(--accent); color:var(--white);}
+  :focus-visible{outline:1.5px solid var(--accent); outline-offset:3px;}
+
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(242,240,233,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 28px;
+    max-width:1040px;
+    margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-style:italic; font-size:1.35rem;}
+  .brand svg{width:22px; height:22px; flex-shrink:0; color:var(--accent-warm);}
+  nav ul{list-style:none; display:flex; gap:26px;}
+  nav a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-size:0.86rem;
+    letter-spacing:0.01em;
+    padding:4px 0;
+    border-bottom:1px solid transparent;
+    transition:color 0.2s ease, border-color 0.2s ease;
+  }
+  nav a:hover{color:var(--ink); border-color:var(--accent-warm);}
+  .nav-toggle{display:none;}
+
+  @media (max-width:680px){
+    nav ul{
+      position:fixed; inset:64px 0 auto 0;
+      flex-direction:column; gap:0;
+      background:var(--white);
+      padding:6px 28px 18px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-8px); opacity:0; pointer-events:none;
+      transition:opacity 0.2s ease, transform 0.2s ease;
+    }
+    nav ul.open{opacity:1; transform:translateY(0); pointer-events:auto;}
+    nav a{padding:12px 0; border-bottom:1px solid var(--line);}
+    .nav-toggle{
+      display:block; background:none; border:1px solid var(--line);
+      font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.05em;
+      padding:8px 12px; cursor:pointer; color:var(--ink);
+    }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:80px 0 56px;}
+  .hero h1{
+    font-family:var(--font-display);
+    font-weight:400;
+    font-size:clamp(2.4rem, 6vw, 4.4rem);
+    line-height:1.05;
+    max-width:14ch;
+    margin-top:20px;
+  }
+  .hero h1 i{color:var(--accent-warm); font-style:italic;}
+  .hero p.lede{
+    margin-top:24px;
+    max-width:52ch;
+    font-size:1.02rem;
+    color:var(--ink-soft);
+    font-weight:300;
+  }
+  .sketch{width:100%; height:auto; margin-top:56px; color:var(--accent);}
+  .sketch path{
+    fill:none; stroke:currentColor; stroke-width:1.4;
+    stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:1400; stroke-dashoffset:1400;
+    animation:draw 2.2s ease forwards 0.2s;
+  }
+  @keyframes draw{ to{stroke-dashoffset:0;} }
+  .meta-row{
+    margin-top:36px; padding-top:20px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:6px 18px;
+    font-family:var(--font-mono); font-size:0.72rem; color:var(--ink-soft); letter-spacing:0.02em;
+  }
+  .meta-row strong{color:var(--ink); font-weight:500;}
+
+  /* ---------- SECTIONS ---------- */
+  .section{padding:76px 0;}
+  .section-head{margin-bottom:48px;}
+  .section-head h2{
+    font-family:var(--font-display); font-weight:400; font-style:italic;
+    font-size:clamp(1.8rem, 4vw, 2.6rem); margin-top:8px;
+  }
+  .section-head p{max-width:56ch; color:var(--ink-soft); font-weight:300; margin-top:14px; font-size:0.98rem;}
+
+  /* ---------- TRABALHOS (lista editorial) ---------- */
+  .trabalho{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:28px;
+    padding:30px 0;
+    border-top:1px solid var(--line);
+    opacity:0; transform:translateY(14px);
+    transition:opacity 0.6s ease, transform 0.6s ease, background 0.2s ease;
+  }
+  .trabalho.visible{opacity:1; transform:translateY(0);}
+  .trabalho:last-child{border-bottom:1px solid var(--line);}
+  .trabalho:hover{background:rgba(255,255,255,0.4);}
+  .trabalho-num{
+    font-family:var(--font-mono); font-size:0.72rem; color:var(--accent-warm);
+    padding-top:4px;
+  }
+  .trabalho-thumb{
+    margin-top:10px; width:76px; height:56px; color:var(--ink-faint);
+  }
+  .trabalho-thumb svg{width:100%; height:100%;}
+  .trabalho-thumb img{width:76px; height:56px; object-fit:cover; border:1px solid var(--line);}
+  .trabalho h3{
+    font-family:var(--font-display); font-style:italic; font-weight:400;
+    font-size:1.5rem; margin-bottom:8px;
+  }
+  .trabalho p{color:var(--ink-soft); font-weight:300; font-size:0.94rem; max-width:64ch;}
+  .trabalho-tags{
+    margin-top:14px; display:flex; flex-wrap:wrap; gap:0;
+    font-family:var(--font-mono); font-size:0.68rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .trabalho-tags span:not(:last-child)::after{content:" · "; color:var(--ink-faint);}
+  .trabalho-integrantes{margin-top:10px; font-size:0.82rem; color:var(--ink-faint); font-style:italic; font-family:var(--font-display);}
+
+  @media (max-width:600px){
+    .trabalho{grid-template-columns:1fr; gap:10px;}
+  }
+
+  /* ---------- TURMA ---------- */
+  .turma-controls{
+    display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between;
+    margin-bottom:36px; padding-bottom:20px; border-bottom:1px solid var(--line);
+  }
+  .turma-count{font-family:var(--font-mono); font-size:0.72rem; color:var(--ink-soft);}
+  .search-wrap{position:relative; flex:1; min-width:180px; max-width:280px;}
+  .search-wrap input{
+    width:100%; border:none; border-bottom:1px solid var(--line); background:transparent;
+    padding:8px 2px; font-family:var(--font-body); font-size:0.9rem; color:var(--ink);
+  }
+  .search-wrap input:focus{border-color:var(--accent);}
+  .search-wrap input::placeholder{color:var(--ink-faint);}
+  .btn-add{
+    font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.03em; text-transform:uppercase;
+    background:none; border:1px solid var(--ink); color:var(--ink);
+    padding:10px 16px; cursor:pointer; transition:background 0.2s ease, color 0.2s ease;
+  }
+  .btn-add:hover{background:var(--ink); color:var(--paper);}
+
+  .add-panel{
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height 0.35s ease, opacity 0.35s ease, margin 0.35s ease;
+    margin-bottom:0;
+  }
+  .add-panel.open{max-height:520px; opacity:1; margin-bottom:36px;}
+  .add-panel form{
+    border:1px solid var(--line); padding:26px; background:var(--white);
+    display:grid; gap:14px; grid-template-columns:1fr 1fr;
+  }
+  .add-panel h3{grid-column:1/-1; font-family:var(--font-display); font-style:italic; font-size:1.3rem; font-weight:400;}
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field.full{grid-column:1/-1;}
+  .field label{font-family:var(--font-mono); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft);}
+  .field input, .field textarea{
+    border:none; border-bottom:1px solid var(--line); background:transparent;
+    padding:8px 2px; font-family:var(--font-body); font-size:0.9rem; color:var(--ink); resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{border-color:var(--accent);}
+  .add-panel-actions{grid-column:1/-1; display:flex; align-items:center; gap:16px;}
+  .add-panel-actions button{
+    font-family:var(--font-mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em;
+    background:var(--accent); color:var(--white); border:none; padding:11px 20px; cursor:pointer;
+  }
+  .add-panel-actions button:hover{background:var(--ink);}
+  .form-msg{font-family:var(--font-mono); font-size:0.7rem; color:var(--accent-warm);}
+
+  .turma-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+    gap:0;
+  }
+  .cracha{
+    border-top:1px solid var(--line);
+    padding:18px 4px;
+  }
+  .cracha summary{
+    list-style:none; cursor:pointer; display:flex; align-items:center; gap:12px;
+  }
+  .cracha summary::-webkit-details-marker{display:none;}
+  .avatar{
+    width:46px; height:46px; border-radius:50%; flex-shrink:0;
+    border:1px solid var(--ink-faint);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-style:italic; font-size:1.05rem; color:var(--accent);
+    overflow:hidden;
+  }
+  .avatar img{width:100%; height:100%; object-fit:cover;}
+  .cracha-name{font-family:var(--font-body); font-weight:500; font-size:0.92rem;}
+  .cracha-papel{font-family:var(--font-mono); font-size:0.64rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.03em; margin-top:2px;}
+  .cracha-bio{
+    margin-top:12px; padding-left:58px; font-size:0.85rem; color:var(--ink-soft); font-weight:300;
+    max-width:46ch;
+  }
+  .turma-empty{
+    grid-column:1/-1; padding:40px 0; text-align:center;
+    color:var(--ink-faint); font-family:var(--font-display); font-style:italic; font-size:1.1rem;
+    border-top:1px solid var(--line);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line); padding:32px 0; }
+  footer .wrap{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:0.68rem; color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 3v18M3 12h18" stroke-width="0.8" opacity="0.5"/>
+      </svg>
+      Nome da turma
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navList">Menu</button>
+    <nav>
+      <ul id="navList">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#trabalhos">Trabalhos</a></li>
+        <li><a href="#turma">Turma</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <span class="eyebrow">Trabalho interdisciplinar · 20XX</span>
+    <h1>Oito trabalhos, <i>um processo</i>, uma turma inteira.</h1>
+    <p class="lede">Este espaço reúne o que a turma produziu ao longo do semestre — os oito trabalhos que atravessam as disciplinas do curso — e as pessoas por trás de cada um deles. Edite este texto com uma descrição da disciplina, do tema geral e do período letivo.</p>
+
+    <svg class="sketch" viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M10,120 L10,64 L70,20 L130,64 L130,120 L190,120 L190,50 L260,50 L260,120 L320,120 L320,80 L370,80 L370,120 L430,120 L430,36 L470,36 L470,70 L530,70 L530,120 L590,120"/>
+    </svg>
+
+    <div class="meta-row">
+      <span><strong>Instituição —</strong> nome da faculdade</span>
+      <span><strong>Curso —</strong> Arquitetura e Urbanismo</span>
+      <span><strong>Período —</strong> 0º semestre / 20XX</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="trabalhos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">01 — 08</span>
+      <h2>Os trabalhos</h2>
+      <p>Edite o array <code>projetos</code> no script, no final do arquivo, para trocar título, disciplinas, descrição, integrantes e imagem de cada trabalho.</p>
+    </div>
+    <div id="projetosLista"></div>
+  </div>
+</section>
+
+<section class="section" id="turma">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Índice</span>
+      <h2>Quem faz parte</h2>
+      <p>Cada colega pode se cadastrar diretamente aqui pelo botão abaixo — não é preciso editar código. Os dados ficam salvos e visíveis para quem acessar este site.</p>
+    </div>
+
+    <div class="turma-controls">
+      <span class="turma-count" id="turmaCount">carregando…</span>
+      <div class="search-wrap">
+        <input type="text" id="buscaAluno" placeholder="Buscar por nome ou foco…">
+      </div>
+      <button class="btn-add" id="toggleAdd">+ Adicionar meu perfil</button>
+    </div>
+
+    <div class="add-panel" id="addPanel">
+      <form id="formAluno">
+        <h3>Adicionar à turma</h3>
+        <div class="field full">
+          <label for="fNome">Nome *</label>
+          <input type="text" id="fNome" required maxlength="80">
+        </div>
+        <div class="field">
+          <label for="fFoco">Foco / interesse</label>
+          <input type="text" id="fFoco" maxlength="60" placeholder="ex: urbanismo, paisagismo…">
+        </div>
+        <div class="field">
+          <label for="fFoto">Foto (URL, opcional)</label>
+          <input type="url" id="fFoto" maxlength="300" placeholder="https://…">
+        </div>
+        <div class="field full">
+          <label for="fBio">Uma frase de apresentação</label>
+          <textarea id="fBio" rows="2" maxlength="220"></textarea>
+        </div>
+        <div class="add-panel-actions">
+          <button type="submit">Adicionar</button>
+          <span class="form-msg" id="formMsg"></span>
+        </div>
+      </form>
+    </div>
+
+    <div class="turma-grid" id="turmaGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Feito pela turma, para a turma.</span>
+    <span>Site editável — veja os comentários no código-fonte.</span>
+  </div>
+</footer>
+
+<script>
+  // ============================================================
+  // COMO EDITAR OS TRABALHOS
+  // Edite o array "projetos" abaixo — um item por trabalho (8 no total).
+  // "imagem": URL de uma imagem. Se ficar em branco, mostra um desenho de linha.
+  // ============================================================
+  const projetos = [
+    { titulo:"Título do trabalho 1", disciplinas:["Urbanismo","Estrutura"], descricao:"Breve descrição do trabalho: o problema proposto, o contexto e a solução desenvolvida pelo grupo.", integrantes:"Integrantes do grupo", imagem:"" },
+    { titulo:"Título do trabalho 2", disciplinas:["Conforto ambiental"], descricao:"Breve descrição do trabalho: o problema proposto, o contexto e a solução desenvolvida pelo grupo.", integrantes:"Integrantes do grupo", imagem:"" },
+    { titulo:"Título do trabalho 3", disciplinas:["Paisagismo","Sustentabilidade"], descricao:"Breve descrição do trabalho: o problema proposto, o contexto e a solução desenvolvida pelo grupo.", integrantes:"Integrantes do grupo", imagem:"" },
+    { titulo:"Título do trabalho 4", disciplinas:["Tecnologia da construção"], descricao:"Breve descrição do trabalho: o problema proposto, o contexto e a solução desenvolvida pelo grupo.", integrantes:"Integrantes do grupo", imagem:"" },
+    { titulo:"Título do trabalho 5", disciplinas:["História da arquitetura"], descricao:"Breve descrição do trabalho: o problema proposto, o contexto e a solução desenvolvida pelo grupo.", integrantes:"Integrantes do grupo", imagem:"" },
+    { titulo:"Título do trabalho 6", disciplinas:["Projeto arquitetônico"], descricao:"Breve descrição do trabalho: o problema proposto, o contexto e a solução desenvolvida pelo grupo.", integrantes:"Integrantes do grupo", imagem:"" },
+    { titulo:"Título do trabalho 7", disciplinas:["Instalações prediais"], descricao:"Breve descrição do trabalho: o problema proposto, o contexto e a solução desenvolvida pelo grupo.", integrantes:"Integrantes do grupo", imagem:"" },
+    { titulo:"Título do trabalho 8", disciplinas:["Trabalho final"], descricao:"Breve descrição do trabalho: o problema proposto, o contexto e a solução desenvolvida pelo grupo.", integrantes:"Integrantes do grupo", imagem:"" },
+  ];
+
+  function escapeHtml(str){
+    return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  const thumbSvg = `<svg viewBox="0 0 76 56" xmlns="http://www.w3.org/2000/svg"><path d="M2,50 L2,26 L20,10 L38,26 L38,50 L52,50 L52,18 L74,18 L74,50" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+  const projetosLista = document.getElementById('projetosLista');
+  projetos.forEach((p, i) => {
+    const num = String(i+1).padStart(2,'0');
+    const el = document.createElement('article');
+    el.className = 'trabalho';
+    el.innerHTML = `
+      <div>
+        <div class="trabalho-num">${num}</div>
+        <div class="trabalho-thumb">${p.imagem ? `<img src="${escapeHtml(p.imagem)}" alt="">` : thumbSvg}</div>
+      </div>
+      <div>
+        <h3>${escapeHtml(p.titulo)}</h3>
+        <p>${escapeHtml(p.descricao)}</p>
+        <div class="trabalho-tags">${p.disciplinas.map(d => `<span>${escapeHtml(d)}</span>`).join('')}</div>
+        <div class="trabalho-integrantes">${escapeHtml(p.integrantes)}</div>
+      </div>
+    `;
+    projetosLista.appendChild(el);
+  });
+
+  const io1 = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting){ entry.target.classList.add('visible'); io1.unobserve(entry.target); } });
+  }, { threshold:0.1 });
+  document.querySelectorAll('.trabalho').forEach(el => io1.observe(el));
+
+  // ============================================================
+  // TURMA — cadastro colaborativo (salvo em armazenamento compartilhado)
+  // Colegas se adicionam pelo formulário na página; não precisa editar código.
+  // Opcionalmente, dá para pré-popular alguns nomes aqui:
+  // ============================================================
+  const seedTurma = [
+    // { nome:"Nome do(a) estudante", foco:"Área de interesse", bio:"Uma frase de apresentação.", foto:"" },
+  ];
+
+  let alunosArmazenados = [];
+
+  function renderIniciais(nome){
+    return nome.split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
+  }
+
+  function renderTurma(filtro=''){
+    const grid = document.getElementById('turmaGrid');
+    const todos = [...seedTurma, ...alunosArmazenados];
+    const termo = filtro.trim().toLowerCase();
+    const filtrados = termo
+      ? todos.filter(a => a.nome.toLowerCase().includes(termo) || (a.foco||'').toLowerCase().includes(termo))
+      : todos;
+
+    document.getElementById('turmaCount').textContent =
+      todos.length + (todos.length === 1 ? ' pessoa cadastrada' : ' pessoas cadastradas');
+
+    grid.innerHTML = '';
+    if (filtrados.length === 0){
+      grid.innerHTML = `<div class="turma-empty">${todos.length === 0 ? 'Ainda ninguém se cadastrou — seja a primeira pessoa.' : 'Nenhum resultado para essa busca.'}</div>`;
+      return;
+    }
+    filtrados.forEach(a => {
+      const el = document.createElement('details');
+      el.className = 'cracha';
+      el.innerHTML = `
+        <summary>
+          <div class="avatar">${a.foto ? `<img src="${escapeHtml(a.foto)}" alt="">` : renderIniciais(a.nome)}</div>
+          <div>
+            <div class="cracha-name">${escapeHtml(a.nome)}</div>
+            ${a.foco ? `<div class="cracha-papel">${escapeHtml(a.foco)}</div>` : ''}
+          </div>
+        </summary>
+        ${a.bio ? `<div class="cracha-bio">${escapeHtml(a.bio)}</div>` : ''}
+      `;
+      grid.appendChild(el);
+    });
+  }
+
+  async function carregarTurma(){
+    try{
+      const listagem = await window.storage.list('aluno:', true);
+      const chaves = listagem?.keys || [];
+      const resultados = await Promise.all(chaves.map(async k => {
+        try{
+          const r = await window.storage.get(k, true);
+          return r ? JSON.parse(r.value) : null;
+        }catch(e){ return null; }
+      }));
+      alunosArmazenados = resultados.filter(Boolean).sort((a,b) => (a.criadoEm||0) - (b.criadoEm||0));
+    }catch(e){
+      console.error('Não foi possível carregar a turma:', e);
+    }
+    renderTurma(document.getElementById('buscaAluno').value);
+  }
+
+  document.getElementById('buscaAluno').addEventListener('input', (e) => renderTurma(e.target.value));
+
+  const toggleAdd = document.getElementById('toggleAdd');
+  const addPanel = document.getElementById('addPanel');
+  toggleAdd.addEventListener('click', () => {
+    addPanel.classList.toggle('open');
+    if (addPanel.classList.contains('open')) document.getElementById('fNome').focus();
+  });
+
+  document.getElementById('formAluno').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const msg = document.getElementById('formMsg');
+    const nome = document.getElementById('fNome').value.trim();
+    if (!nome){ msg.textContent = 'Escreva um nome.'; return; }
+
+    const novo = {
+      nome,
+      foco: document.getElementById('fFoco').value.trim(),
+      bio: document.getElementById('fBio').value.trim(),
+      foto: document.getElementById('fFoto').value.trim(),
+      criadoEm: Date.now()
+    };
+    const chave = 'aluno:' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
+
+    msg.textContent = 'Salvando…';
+    try{
+      const r = await window.storage.set(chave, JSON.stringify(novo), true);
+      if (!r) throw new Error('sem resposta');
+      alunosArmazenados.push(novo);
+      renderTurma(document.getElementById('buscaAluno').value);
+      e.target.reset();
+      msg.textContent = 'Adicionado! Já aparece na lista abaixo.';
+      setTimeout(() => { addPanel.classList.remove('open'); msg.textContent=''; }, 1600);
+    }catch(err){
+      console.error(err);
+      msg.textContent = 'Não deu para salvar agora — tenta de novo.';
+    }
+  });
+
+  renderTurma();
+  carregarTurma();
+
+  // Mobile nav
+  const navToggle = document.getElementById('navToggle');
+  const navList = document.getElementById('navList');
+  navToggle.addEventListener('click', () => {
+    const open = navList.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navList.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  }));
+</script>
+
+</body>
+</html>
